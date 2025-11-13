@@ -1,0 +1,26 @@
+Analisa 
+1.
+
+Hasil visual
+
+Original: distribusi intensitas awal.
+
+LPF: citra menjadi lebih halus; noise dan tepi melemah. Cocok untuk reduksi noise.
+
+HPF: menonjolkan tepi sehingga kontur objek terlihat jelas; area tanpa detail menjadi datar/gelap. Berguna untuk deteksi tepi.
+
+BPF (sharpen): menajamkan citra — detail lebih jelas, tepian dipertegas tanpa membuat citra terlalu berisik (tergantung input).
+2.
+
+Nilai piksel rata-rata
+
+LPF biasanya mendekati mean lokal dan sering membuat mean total sedikit berubah (tergantung struktur citra).
+
+HPF dapat menghasilkan mean yang turun atau naik bergantung pada apakah hasil memiliki banyak nilai rendah (negatif sebelum clipping) atau puncak terang setelah clipping. Karena kernel HPF memiliki sum = 0 (ideal high-pass), rata-rata sering mendekati nilai asli bila tidak ada clipping; namun clipping ke [0,255] mengubah mean yang terlihat.
+
+BPF (sharpen) biasanya mempertahankan mean relatif mendekati original atau sedikit meningkat karena koefisien pusat >1.
+3.
+
+Domain spasial ? Domain frekuensi
+
+Operasi konvolusi di spasial ? perkalian di frekuensi (Fourier). Kernel kecil memetakan respon frekuensi tertentu: LPF menekan frekuensi tinggi, HPF melewatkan frekuensi tinggi, BPF meningkatkan frekuensi menengah untuk efek sharpen.

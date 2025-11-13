@@ -1,0 +1,44 @@
+1.Analisa — perbedaan persebaran nilai keabuan antara ketiga citra
+
+Citra 
+Asli
+
+Histogram menunjukkan bagaimana piksel tersebar pada rentang 0–255 sesuai citra sumber. Bisa fokus pada area gelap, terang, atau tersebar merata tergantung citra asli.
+
+Statistik mean/std merefleksikan kecerahan rata-rata dan kontras.
+
+Citra Negatif (255 - F)
+
+Negatif membalikkan intensitas: nilai gelap menjadi terang dan sebaliknya.
+
+Secara histogram, bentuk histogram negatif adalah refleksi horizontal dari histogram asli (nilai pada bin k di negatif berasal dari bin 255-k pada asli). Jadi jika asli banyak piksel gelap (puncak di kiri), negatif akan punya puncak di kanan.
+
+Mean baru = 255 - mean_asli (secara ideal) — distribusi tetap sama bentuknya tetapi dipindah/di-refleksikan. Kontras relatif tetap.
+
+Citra Logaritmik (c·log(1+F))
+
+Transformasi log bersifat non-linear dan compressive untuk nilai intensitas tinggi, tetapi memperbesar perbedaan pada nilai intensitas rendah (gelap).
+
+Histogram log biasanya akan menggeser dan memadatkan nilai intensitas tinggi ke kisaran yang lebih rendah/menengah dan menyebarkan nilai intensitas rendah sehingga area gelap menjadi lebih terlihat. Dengan kata lain: detail pada bagian gelap diperkuat, sedangkan bagian terang dikompresi.
+
+Rata-rata (mean) sering turun jika citra banyak piksel terang karena kompresi nilai tinggi, dan standar deviasi (kontras global) dapat berubah bergantung distribusi sumber.
+
+
+2.Kapan transformasi logaritmik lebih bermanfaat dibanding negatif?
+
+
+Logaritmik bermanfaat ketika:
+
+Kamu ingin meningkatkan detail pada area gelap (shadow) tanpa membuat area terang jenuh. Contoh: citra dengan banyak informasi pada rentang nilai rendah (gelap) tetapi sedikit perbedaan terlihat; log akan memperluas nilai gelap sehingga detail muncul.
+
+Mengolah citra yang diambil dengan eksposur rendah atau citra dengan rasio kontras tinggi di mana highlight terlalu dominan.
+
+Pra-proses sebelum teknik lain yang membutuhkan detail pada bagian gelap (mis. deteksi fitur di area gelap).
+
+Negatif bermanfaat ketika:
+
+Tujuan adalah membalik visual (misal untuk efek visual, presentasi, atau analisis di mana contoh objek muncul lebih jelas pada latar terbalik).
+
+Negatif tidak mengubah kontras relatif antar piksel (hanya membalik), sehingga tidak cocok jika tujuannya menonjolkan detail gelap/terang secara selektif.
+
+Singkatnya: pakai logaritmik jika ingin meningkatkan detail pada area gelap dan melakukan penekanan (kompresi) pada area terang; pakai negatif hanya jika kamu ingin membalik penampakan intensitas tanpa mengubah distribusi kontras relatif.
